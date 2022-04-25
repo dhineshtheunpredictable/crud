@@ -1,0 +1,139 @@
+<div class="container">
+  <div class="d-flex justify-content-center p-3 mt-4 text-uppercase text-center">
+    <h3>Employee Details Form</h3>
+  </div>
+
+  <div class="text-danger"><b>All the Fields below are Mandatory</b></div>
+
+  <form [formGroup]="employeeDetailsForm" (ngSubmit)="onSubmit()">
+    <!-- Employee Date of Birth -->
+    <label class="font-weight-bold text-muted font-weight-bold text-muted mt-3" for="dob">Date of Birth</label>
+    <input
+      type="datetime-local"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': employeeDetailsForm.get('dob').invalid && employeeDetailsForm.get('dob').touched }"
+      id="dob"
+      [max]="maxDate"
+      formControlName="dob"
+    >
+
+    <!-- Employee's Email Address -->
+    <label class="font-weight-bold text-muted font-weight-bold text-muted mt-3" for="emailAddress">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': employeeDetailsForm.get('emailAddress').invalid && employeeDetailsForm.get('emailAddress').touched }"
+      id="emailAddress"
+      placeholder="Enter Email"
+      formControlName="emailAddress"
+    >
+    <div
+      class="invalid-feedback"
+      *ngIf="employeeDetailsForm.get('emailAddress').errors?.email"
+    >
+      Please enter Email format like mail@gmail.com etc..,
+    </div>
+
+    <!-- Employee's Phone Number-->
+    <div formGroupName="phoneNumber">
+      <label class="font-weight-bold text-muted font-weight-bold text-muted mt-3" for="phoneNumber">Phone Number</label>
+      <div class="text-muted small py-1">Ex: (555) 194-3722</div>
+      <div class="form-check form-check-inline">
+        <span class="font-size-lg">(</span>
+        <input
+          type="number"
+          class="form-control"
+          [style.width]="'50%'"
+          [ngClass]="{ 'is-invalid': employeeDetailsForm.get('phoneNumber.code').invalid && employeeDetailsForm.get('phoneNumber.code').touched }"
+          id="code"
+          placeholder="Code"
+          formControlName="code"
+        >
+        <span class="font-size-lg">)</span>
+        <input
+          type="number"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': employeeDetailsForm.get('phoneNumber.firstPart').invalid && employeeDetailsForm.get('phoneNumber.firstPart').touched }"
+          id="first"
+          placeholder="First Part"
+          formControlName="firstPart"
+        >
+        <span class="font-size-lg">-</span>
+        <input
+          type="number"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': employeeDetailsForm.get('phoneNumber.secondPart').invalid && employeeDetailsForm.get('phoneNumber.secondPart').touched }"
+          id="second"
+          placeholder="Second Part"
+          formControlName="secondPart"
+        >
+      </div>
+    </div>
+
+    <!-- Employee's Gender -->
+    <label class="font-weight-bold text-muted mt-3" for="gender">Gender</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="male" value="true" formControlName="gender">
+      <label class="form-check-label" for="male">
+        Male
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="female" value="false" formControlName="gender">
+      <label class="form-check-label" for="female">
+        Female
+      </label>
+    </div>
+
+    <!-- Employee's Company -->
+    <label class="font-weight-bold text-muted mt-3" for="company">Company</label>
+    <input
+      type="text"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': employeeDetailsForm.get('company').invalid && employeeDetailsForm.get('company').touched }"
+      id="company"
+      placeholder="Enter Company name"
+      formControlName="company"
+    >
+
+    <!-- Employee's Full Name -->
+    <label class="font-weight-bold text-muted mt-3" for="fullName">Full Name</label>
+    <input
+      type="text"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': employeeDetailsForm.get('fullName').invalid && employeeDetailsForm.get('fullName').touched }"
+      id="fullName"
+      placeholder="Enter Employee Full Name"
+      formControlName="fullName"
+    >
+    <div
+      class="invalid-feedback"
+      *ngIf="employeeDetailsForm.get('fullName').errors?.pattern"
+    >
+      Numbers and special characters $@~!#.. are not allowed
+    </div>
+
+    <!-- Employee's Position -->
+    <label class="font-weight-bold text-muted mt-3" for="position">Position</label>
+    <input
+      type="text"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': employeeDetailsForm.get('position').invalid && employeeDetailsForm.get('position').touched }"
+      id="position"
+      placeholder="Enter Employee Position"
+      formControlName="position"
+    >
+    <div
+      class="invalid-feedback"
+      *ngIf="employeeDetailsForm.get('position').errors?.pattern"
+    >
+      Special characters $@~!#.. are not allowed
+    </div>
+
+    <div class="alert alert-success my-2" role="alert" *ngIf="isSuccess">
+      {{ successMessage }}
+    </div>
+
+    <button [disabled]="employeeDetailsForm.invalid" class="btn btn-primary mt-4" type="submit">Submit</button>
+  </form>
+</div>
